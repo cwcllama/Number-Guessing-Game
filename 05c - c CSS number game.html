@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8" />
+		<title>Number Guessing Game</title>
+
+	</head>
+
+	<body>
+
+		<h1>The Number Guessing Game!</h1>
+		<p>Guess a number, and hit "Guess"!</p>
+
+		<p>
+
+			<input type="number" id="guess" min="1" max="100" pattern="[0-9]{1,3}" />
+			<button onclick="guess();">Guess</button>
+
+		</p>
+
+		<div id="list"></div>
+
+		<script>
+
+			// set the initial state of the program to "not running"
+			var started = false;
+
+			// create a container variable for the random number to use
+			var randomNumber;
+
+			// create a function for every time the button is clicked
+			function guess() {
+
+				// if the program is still "not running"
+				if( started === false ) {
+
+					// generate the random number
+					randomNumber = Math.round( Math.random() * 99 + 1 );
+
+					// clear the list of guesses
+					document.getElementById('list').innerHTML = '';
+
+					// set the program to "running"
+					started = true;
+
+				// end if
+				}
+
+				// get the guess from the textbox, and parse it as an integer
+				var guess = parseInt( document.getElementById('guess').value );
+
+				// start a string of text to output the guess to the list
+				var textToAdd = '<p>Your guess was ' + guess + '... ';
+
+				// determine whether their guess is too high, too low, or right on
+				switch( true ) {
+
+					// if their guess was correct
+					case (guess === randomNumber):
+
+						// finish off the text for adding to the list
+						textToAdd += '<b style="color: green;">AND YOU WERE EXCRUCIATINGLY CORRECT! :)</b></p><p>Just type another number and hit guess to start ALL OVER AGAIN from the beginning!</p>';
+
+						// reset the program to "not running"
+						started = false;
+
+						// i'm done with this case :)
+						break;
+
+					// if their guess was too low
+					case (guess < randomNumber):
+
+						// finish off the text for adding to the list
+						textToAdd += 'You should try a <b>HIGHER</b> number!</p>';
+
+						// i'm done with this case :)
+						break;
+
+					// if their guess was too high
+					case (guess > randomNumber):
+
+						// finish off the text for adding to the list
+						textToAdd += 'You should try a <b>LOWER</b> number!</p>';
+
+				// end switch
+				}
+
+				// add all the text for this guess to the list
+				document.getElementById('list').innerHTML += textToAdd;
+
+			// end the function
+			}
+
+		</script>
+
+	</body>
+
+</html>
+
